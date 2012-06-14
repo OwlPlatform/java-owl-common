@@ -30,8 +30,8 @@ Copyright (C) 2012 Robert Moore and the Owl Platform
   This library should be compiled using the Apache Maven project management tool.
   The project is currently compatible with Apache Maven version 3, which
   can be downloaded for free at <http://maven.apache.org/>.  To build the
-  static JAR file output, the following command should be run from the
-  project root (where the pom.xml file is located):
+  JAR file, the following command should be run from the project root (where
+  the pom.xml file is located):
 
     mvn clean package -U
 
