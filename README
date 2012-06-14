@@ -8,30 +8,30 @@ Project Website: <https://github.com/OwlPlatform/java-owl-common>
 
 Copyright (C) 2012 Robert Moore and the Owl Platform
 
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 2.1 of the License, or (at your option) any later version.
+  This library is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as published by the
+  Free Software Foundation; either version 2.1 of the License, or (at your
+  option) any later version.
 
-  This library is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
+  This library is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
+  for more details.
 
-  You should have received a copy of the GNU Lesser General Public
-  License along with this library; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+  You should have received a copy of the GNU Lesser General Public License
+  along with this library; if not, write to the Free Software Foundation,
+  Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 == About ==
   This library contains common classes and routines used by other components
   of the Owl Platform.
 
 == Compiling ==
-  This library should be compiled using the Apache Maven project management tool.
-  The project is currently compatible with Apache Maven version 3, which
-  can be downloaded for free at <http://maven.apache.org/>.  To build the
-  JAR file, the following command should be run from the project root (where
-  the pom.xml file is located):
+  This library should be compiled using the Apache Maven project management
+  tool.  The project is currently compatible with Apache Maven version 3,
+  which can be downloaded for free at <http://maven.apache.org/>.  To build
+  the JAR file, the following command should be run from the project root
+  (where the pom.xml file is located):
 
     mvn clean package -U
 
@@ -41,6 +41,6 @@ Copyright (C) 2012 Robert Moore and the Owl Platform
     [INFO] BUILD SUCCESS
 
   In this case, the JAR file will be located in the ``target'' subdirectory.
-  If not, please visit the project website listed at the top of this
-  document for support.
+  If not, please visit the project website listed at the top of this document
+  for support.
 
