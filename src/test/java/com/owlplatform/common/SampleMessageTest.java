@@ -47,6 +47,11 @@ public class SampleMessageTest {
   private SampleMessage testSample;
 
   /**
+   * Example unknown physical layer type.
+   */
+  private static final byte PHY_UNKNOWN = (byte) 0xFF;
+
+  /**
    * The expected length of a Sensor-Aggregator SampleMessage object with no
    * data.
    */
@@ -56,7 +61,7 @@ public class SampleMessageTest {
    * Sample data {@code byte[]} with length 0.
    */
   private static final byte[] TEST_DATA_0BYTE = new byte[] {};
-  
+
   /**
    * Sample 4-byte data {@code byte[]}.
    */
@@ -91,9 +96,9 @@ public class SampleMessageTest {
    */
   private static final float RSSI3 = 100f;
 
-/**
- * A timestamp at a fixed point in time.
- */
+  /**
+   * A timestamp at a fixed point in time.
+   */
   private static final long TIMESTAMP_FIXED = -500l;
 
   /**
@@ -114,12 +119,14 @@ public class SampleMessageTest {
       6, 7, 8, 9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF };
 
   /**
-   * The expected result from a call to {@code toString()} on a Sample with default values.
+   * The expected result from a call to {@code toString()} on a Sample with
+   * default values.
    */
   private static final String TO_STRING_PLAIN = "Sample (0, 0x, 0x): 0.0 @ 0";
 
   /**
-   * The expected result from a call to {@code toString()} on a Sample with some of the test data values.
+   * The expected result from a call to {@code toString()} on a Sample with some
+   * of the test data values.
    */
   private static final String TO_STRING_DATA = "Sample (2, 0x00000000000000000000000000001234, 0x000102030405060708090A0B0C0D0E0F): -50.0 @ -500 [0x00010203]";
 
@@ -133,7 +140,8 @@ public class SampleMessageTest {
   }
 
   /**
-   * Tests that the physical layer value is correctly handled by the SampleMessage class.
+   * Tests that the physical layer value is correctly handled by the
+   * SampleMessage class.
    */
   @Test
   public void testPhysicalLayer() {
@@ -146,33 +154,53 @@ public class SampleMessageTest {
     this.basicSample.setPhysicalLayer(SampleMessage.PHYSICAL_LAYER_WIFI);
     Assert.assertEquals(SampleMessage.PHYSICAL_LAYER_WIFI,
         this.basicSample.getPhysicalLayer());
+
+    this.basicSample.setPhysicalLayer(PHY_UNKNOWN);
+    Assert.assertEquals(PHY_UNKNOWN, this.basicSample.getPhysicalLayer());
   }
 
   /**
-   * Tests that the length prefix values are correctly returned by the SampleMessage class.
+   * Test to ensure that using {@link SampleMessage#PHYSICAL_LAYER_ALL} throws
+   * an {@code IllegalArgumentException}.
+   */
+  @Test(expected=IllegalArgumentException.class)
+  public void testInvalidPhysicalLayer() {
+    this.basicSample.setPhysicalLayer(SampleMessage.PHYSICAL_LAYER_ALL);
+  }
+
+  /**
+   * Tests that the length prefix values are correctly returned by the
+   * SampleMessage class.
    */
   @Test
   public void testLengthPrefix() {
     // Default sensor->aggregator length is 45 bytes
     Assert.assertEquals(BASE_LENGTH, this.basicSample.getLengthPrefixSensor());
     // +1 byte for the message type
-    Assert.assertEquals(BASE_LENGTH+1, this.basicSample.getLengthPrefixSolver());
+    Assert.assertEquals(BASE_LENGTH + 1,
+        this.basicSample.getLengthPrefixSolver());
 
     this.basicSample.setSensedData(TEST_DATA_4BYTE);
-    Assert.assertEquals(BASE_LENGTH + 4, this.basicSample.getLengthPrefixSensor());
-    Assert.assertEquals(BASE_LENGTH + 5, this.basicSample.getLengthPrefixSolver());
+    Assert.assertEquals(BASE_LENGTH + 4,
+        this.basicSample.getLengthPrefixSensor());
+    Assert.assertEquals(BASE_LENGTH + 5,
+        this.basicSample.getLengthPrefixSolver());
 
     this.basicSample.setSensedData(TEST_DATA_8BYTE);
-    Assert.assertEquals(BASE_LENGTH + 8, this.basicSample.getLengthPrefixSensor());
-    Assert.assertEquals(BASE_LENGTH + 9, this.basicSample.getLengthPrefixSolver());
+    Assert.assertEquals(BASE_LENGTH + 8,
+        this.basicSample.getLengthPrefixSensor());
+    Assert.assertEquals(BASE_LENGTH + 9,
+        this.basicSample.getLengthPrefixSolver());
 
     this.basicSample.setSensedData(TEST_DATA_0BYTE);
     Assert.assertEquals(BASE_LENGTH, this.basicSample.getLengthPrefixSensor());
-    Assert.assertEquals(BASE_LENGTH+1, this.basicSample.getLengthPrefixSolver());
+    Assert.assertEquals(BASE_LENGTH + 1,
+        this.basicSample.getLengthPrefixSolver());
 
     this.basicSample.setSensedData(null);
     Assert.assertEquals(BASE_LENGTH, this.basicSample.getLengthPrefixSensor());
-    Assert.assertEquals(BASE_LENGTH+1, this.basicSample.getLengthPrefixSolver());
+    Assert.assertEquals(BASE_LENGTH + 1,
+        this.basicSample.getLengthPrefixSolver());
   }
 
   /**
@@ -183,12 +211,12 @@ public class SampleMessageTest {
     Assert.assertNull(this.basicSample.getDeviceId());
 
     this.basicSample.setDeviceId(TEST_DEVICE_ID1);
-    Assert
-        .assertTrue(Arrays.equals(TEST_DEVICE_ID1, this.basicSample.getDeviceId()));
+    Assert.assertTrue(Arrays.equals(TEST_DEVICE_ID1,
+        this.basicSample.getDeviceId()));
 
     this.basicSample.setDeviceId(TEST_DEVICE_ID2);
-    Assert
-        .assertTrue(Arrays.equals(TEST_DEVICE_ID2, this.basicSample.getDeviceId()));
+    Assert.assertTrue(Arrays.equals(TEST_DEVICE_ID2,
+        this.basicSample.getDeviceId()));
   }
 
   /**
@@ -198,17 +226,19 @@ public class SampleMessageTest {
   public void testDeviceIdNull() {
     this.basicSample.setDeviceId(null);
   }
-  
-/**
- * Tests that setting a device ID shorter than 16 bytes will throw a RuntimeException.
- */
+
+  /**
+   * Tests that setting a device ID shorter than 16 bytes will throw a
+   * RuntimeException.
+   */
   @Test(expected = RuntimeException.class)
   public void testDeviceIdShort() {
     this.basicSample.setDeviceId(TEST_DATA_4BYTE);
   }
 
   /**
-   * Tests that setting a device ID longer than 16 bytes will throw a RuntimeException.
+   * Tests that setting a device ID longer than 16 bytes will throw a
+   * RuntimeException.
    */
   @Test(expected = RuntimeException.class)
   public void testDeviceIdLong() {
@@ -216,7 +246,8 @@ public class SampleMessageTest {
   }
 
   /**
-   * Tests to ensure that receiver ID values are treated correctly within the SampleMessage class.
+   * Tests to ensure that receiver ID values are treated correctly within the
+   * SampleMessage class.
    */
   @Test
   public void testReceiverId() {
@@ -240,7 +271,8 @@ public class SampleMessageTest {
   }
 
   /**
-   * Ensures that setting a receiver ID shorter than 16 bytes will throw a RuntimeException.
+   * Ensures that setting a receiver ID shorter than 16 bytes will throw a
+   * RuntimeException.
    */
   @Test(expected = RuntimeException.class)
   public void testReceiverIdShort() {
@@ -248,7 +280,8 @@ public class SampleMessageTest {
   }
 
   /**
-   * Ensures that setting a receiver ID long than 16 bytes will throw a RuntimeException.
+   * Ensures that setting a receiver ID long than 16 bytes will throw a
+   * RuntimeException.
    */
   @Test(expected = RuntimeException.class)
   public void testReceiverIdLong() {
@@ -263,28 +296,28 @@ public class SampleMessageTest {
     Assert.assertEquals(0l, this.basicSample.getReceiverTimeStamp());
 
     this.basicSample.setReceiverTimeStamp(TIMESTAMP_FIXED);
-    Assert.assertEquals(TIMESTAMP_FIXED, this.basicSample.getReceiverTimeStamp());
+    Assert.assertEquals(TIMESTAMP_FIXED,
+        this.basicSample.getReceiverTimeStamp());
 
     this.basicSample.setReceiverTimeStamp(TIMESTAMP_NOW);
     Assert.assertEquals(TIMESTAMP_NOW, this.basicSample.getReceiverTimeStamp());
   }
 
-  
   /**
    * Tests to ensure that RSSI values are handled correctly.
    */
   @Test
   public void testRssi() {
-    Assert.assertEquals(0f, this.basicSample.getRssi(),0.001f);
+    Assert.assertEquals(0f, this.basicSample.getRssi(), 0.001f);
 
     this.basicSample.setRssi(RSSI1);
-    Assert.assertEquals(RSSI1, this.basicSample.getRssi(),0.001f);
+    Assert.assertEquals(RSSI1, this.basicSample.getRssi(), 0.001f);
 
     this.basicSample.setRssi(RSSI2);
-    Assert.assertEquals(RSSI2, this.basicSample.getRssi(),0.001f);
+    Assert.assertEquals(RSSI2, this.basicSample.getRssi(), 0.001f);
 
     this.basicSample.setRssi(RSSI3);
-    Assert.assertEquals(RSSI3, this.basicSample.getRssi(),0.001f);
+    Assert.assertEquals(RSSI3, this.basicSample.getRssi(), 0.001f);
   }
 
   /**
@@ -308,7 +341,9 @@ public class SampleMessageTest {
   }
 
   /**
-   * Tests the clone method to ensure that cloned objects are appropriately equivalent.
+   * Tests the clone method to ensure that cloned objects are appropriately
+   * equivalent.
+   * 
    * @throws CloneNotSupportedException
    */
   @Test
@@ -325,7 +360,7 @@ public class SampleMessageTest {
         clone.getPhysicalLayer());
     Assert.assertEquals(this.basicSample.getReceiverTimeStamp(),
         clone.getReceiverTimeStamp());
-    Assert.assertEquals(this.basicSample.getRssi(), clone.getRssi(),0.001f);
+    Assert.assertEquals(this.basicSample.getRssi(), clone.getRssi(), 0.001f);
     Assert.assertTrue(Arrays.equals(this.basicSample.getDeviceId(),
         clone.getDeviceId()));
     Assert.assertTrue(Arrays.equals(this.basicSample.getReceiverId(),
@@ -342,11 +377,11 @@ public class SampleMessageTest {
         clone.getLengthPrefixSolver());
     Assert.assertEquals(this.testSample.getCreationTimestamp(),
         clone.getCreationTimestamp());
-    Assert
-        .assertEquals(this.testSample.getPhysicalLayer(), clone.getPhysicalLayer());
+    Assert.assertEquals(this.testSample.getPhysicalLayer(),
+        clone.getPhysicalLayer());
     Assert.assertEquals(this.testSample.getReceiverTimeStamp(),
         clone.getReceiverTimeStamp());
-    Assert.assertEquals(this.testSample.getRssi(), clone.getRssi(),0.001f);
+    Assert.assertEquals(this.testSample.getRssi(), clone.getRssi(), 0.001f);
     Assert.assertTrue(Arrays.equals(this.testSample.getDeviceId(),
         clone.getDeviceId()));
     Assert.assertTrue(Arrays.equals(this.testSample.getReceiverId(),

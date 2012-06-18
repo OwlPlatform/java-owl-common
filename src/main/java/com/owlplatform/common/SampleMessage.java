@@ -43,7 +43,8 @@ public class SampleMessage implements Cloneable {
   public static final byte MESSAGE_TYPE = 6;
 
   /**
-   * Physical layer for "any" type.
+   * Physical layer for filtering any physical layer type. This should not be
+   * used as the type of a {@code SampleMessage}.
    */
   public static final byte PHYSICAL_LAYER_ALL = 0;
   /**
@@ -85,8 +86,14 @@ public class SampleMessage implements Cloneable {
    * @param physicalLayer
    *          the physical layer type for the transmitter/receiver identified in
    *          this message.
+   * @throws IllegalArgumentException if the value of {@code physicalLayer}
+   *  is equal to {@link #PHYSICAL_LAYER_ALL}.
    */
   public void setPhysicalLayer(byte physicalLayer) {
+    if (physicalLayer == PHYSICAL_LAYER_ALL) {
+      throw new IllegalArgumentException("Invalid physical layer type. "
+          + PHYSICAL_LAYER_ALL + " is reserved for filtering only.");
+    }
     this.physicalLayer = physicalLayer;
   }
 
@@ -351,12 +358,13 @@ public class SampleMessage implements Cloneable {
     message.setSensedData(new byte[] { 0, 0 });
     return message;
   }
-  
+
   @Override
-  public SampleMessage clone() throws CloneNotSupportedException{
-    SampleMessage clone = (SampleMessage)super.clone();
-    if(this.sensedData != null){
-    clone.setSensedData(Arrays.copyOf(this.sensedData,this.sensedData.length));
+  public SampleMessage clone() throws CloneNotSupportedException {
+    SampleMessage clone = (SampleMessage) super.clone();
+    if (this.sensedData != null) {
+      clone.setSensedData(Arrays
+          .copyOf(this.sensedData, this.sensedData.length));
     }
     return clone;
   }
