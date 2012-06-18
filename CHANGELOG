@@ -6,6 +6,8 @@ Project Website: <https://github.com/OwlPlatform/java-owl-common>
 
 Version 1.0.2 - TBD
  + Added hexadecimal string to byte[] converter in NumericUtils.
+ + Prohibiting the use of the "ALL" PHY identifier in sample messages.
+ + Adding a specific "Undefined" PHY identifier to SampleMessage.
 
 Version 1.0.1 - June 13, 2012
  + Initial version ported from GRAIL RTLS at SourceForge.net.

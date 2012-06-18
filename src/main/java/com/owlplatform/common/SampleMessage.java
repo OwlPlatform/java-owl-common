@@ -43,6 +43,11 @@ public class SampleMessage implements Cloneable {
   public static final byte MESSAGE_TYPE = 6;
 
   /**
+   * An undefined physical layer type.
+   */
+  public static final byte PHYSICAL_LAYER_UNDEFINED = (byte)0xFF;
+  
+  /**
    * Physical layer for filtering any physical layer type. This should not be
    * used as the type of a {@code SampleMessage}.
    */
@@ -66,7 +71,7 @@ public class SampleMessage implements Cloneable {
    * The physical layer type of the transmitter/receiver identified in this
    * message.
    */
-  private byte physicalLayer;
+  private byte physicalLayer = PHYSICAL_LAYER_UNDEFINED;
 
   /**
    * Returns the physical layer type for the transmitter/receiver identified in

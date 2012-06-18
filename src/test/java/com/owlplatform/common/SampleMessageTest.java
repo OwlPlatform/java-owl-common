@@ -122,7 +122,7 @@ public class SampleMessageTest {
    * The expected result from a call to {@code toString()} on a Sample with
    * default values.
    */
-  private static final String TO_STRING_PLAIN = "Sample (0, 0x, 0x): 0.0 @ 0";
+  private static final String TO_STRING_PLAIN = "Sample (-1, 0x, 0x): 0.0 @ 0";
 
   /**
    * The expected result from a call to {@code toString()} on a Sample with some
@@ -145,7 +145,7 @@ public class SampleMessageTest {
    */
   @Test
   public void testPhysicalLayer() {
-    Assert.assertEquals(0, this.basicSample.getPhysicalLayer());
+    Assert.assertEquals(SampleMessage.PHYSICAL_LAYER_UNDEFINED, this.basicSample.getPhysicalLayer());
 
     this.basicSample.setPhysicalLayer(SampleMessage.PHYSICAL_LAYER_PIPSQUEAK);
     Assert.assertEquals(SampleMessage.PHYSICAL_LAYER_PIPSQUEAK,
