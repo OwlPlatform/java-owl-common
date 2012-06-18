@@ -18,6 +18,8 @@
  */
 package com.owlplatform.common.util;
 
+import java.util.Arrays;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -29,24 +31,39 @@ import org.junit.Test;
 public class NumericUtilsTest {
 
   /**
+   * The output byte[] from STRING_INVALID.
+   */
+  private static final byte[] INVALID = new byte[] {0,0,0,0};
+  
+  /**
+   * A string containing invalid hex characters
+   */
+  private static final String STRING_INVALID = "OXOXOXO";
+  
+  /**
    * byte[] data with leading 0 values.
    */
-  private static final byte[] LEADING_ZEROS = new byte[] {0,0,1,2,3,4};
+  private static final byte[] LEADING_ZEROS = new byte[] {0,0,1,2,3,0x0E};
   
   /**
    * byte[] data with no leading 0 values.
    */
-  private static final byte[] NO_LEADING_ZEROS = new byte[] {1,2,3,4};
+  private static final byte[] NO_LEADING_ZEROS = new byte[] {1,2,3,0x0E};
+  
+  /**
+   * byte[] with length of 0.
+   */
+  private static final byte[] ZERO_LENGTH = new byte[0];
   
   /**
    * Expected string for LEADING_ZEROS printed without leading zeros.
    */
-  private static final String STRING_NO_LEADING = "0x01020304";
+  private static final String STRING_NO_LEADING = "0x0102030E";
   
   /**
    * Expected string for LEADING_ZEROS printed with leading zeros.
    */
-  private static final String STRING_LEADING_ZEROS = "0x000001020304";
+  private static final String STRING_LEADING_ZEROS = "0x00000102030E";
   
   /**
    * Expected string for a single byte with value 1.
@@ -99,5 +116,21 @@ public class NumericUtilsTest {
     Assert.assertEquals(STRING_NO_LEADING, NumericUtils.toEmptyHexString(LEADING_ZEROS));
     Assert.assertEquals(STRING_NO_LEADING, NumericUtils.toEmptyHexString(NO_LEADING_ZEROS));
     Assert.assertEquals(STRING_EMPTY_NULL, NumericUtils.toEmptyHexString(null));
+    Assert.assertEquals(STRING_EMPTY_NULL, NumericUtils.toEmptyHexString(ZERO_LENGTH));
+  }
+  
+  /**
+   * Test conversion from hexadecimal Strings to byte[].
+   */
+  @Test
+  public void testFromHexString(){
+    System.out.println(Arrays.toString(NumericUtils.fromHexString(STRING_LEADING_ZEROS)));
+    Assert.assertTrue(Arrays.equals(LEADING_ZEROS,NumericUtils.fromHexString(STRING_LEADING_ZEROS)));
+    Assert.assertTrue(Arrays.equals(NO_LEADING_ZEROS,NumericUtils.fromHexString(STRING_NO_LEADING)));
+    Assert.assertTrue(Arrays.equals(INVALID,NumericUtils.fromHexString(STRING_INVALID)));
+    
+    Assert.assertNull(NumericUtils.fromHexString(null));
+    Assert.assertNull(NumericUtils.fromHexString(""));
+    Assert.assertNull(NumericUtils.fromHexString("0x"));
   }
 }

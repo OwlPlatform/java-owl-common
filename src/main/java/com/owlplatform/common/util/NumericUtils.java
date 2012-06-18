@@ -21,80 +21,154 @@ package com.owlplatform.common.util;
 
 /**
  * A collection of simple little numeric utilities.
+ * 
  * @author Robert Moore
- *
+ * 
  */
 public class NumericUtils {
-	
-	/**
-	 * List of hexadecimal (base 16) characters for printing.
-	 */
-	public static char[] HEX_CHARS = { '0', '1', '2', '3', '4', '5', '6', '7',
-			'8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
-	/**
-   * Returns a String representing the byte[] as a sequence of uppercase hexadecimal characters, 
-   * starting with "0x". Omitting any leading 0-value bytes.
-   * @param bytes the byte array to convert.
-   * @return a String representing the value of {@code bytes} as hexadecimal characters, starting with
-   * "0x".  If {@code bytes} is null or has a length of 0, then the empty String ("") is returned.
+  /**
+   * List of hexadecimal (base 16) characters for printing.
    */
-	public static String toEmptyHexString(byte[] bytes){
-	  if(bytes == null || bytes.length == 0){return "";}
-	  return toHexShortString(bytes);
-	}
-	
-	/**
-	 * Returns a String representing the byte[] as a sequence of uppercase hexadecimal characters, 
-	 * starting with "0x".
-	 * @param bytes the byte array to convert.
-	 * @return a String representing the value of {@code bytes} as hexadecimal characters, starting with
-	 * "0x".  If {@code bytes} is null or has a length of 0, then the String "0x" is returned.
-	 */
-	public static String toHexString(byte[] bytes) {
-		StringBuffer sb = new StringBuffer("0x");
+  public static char[] HEX_CHARS = { '0', '1', '2', '3', '4', '5', '6', '7',
+      '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
-		if (bytes != null) {
-			for (byte b : bytes) {
-				sb.append(HEX_CHARS[0x0F & (b >> 4)]).append(
-						HEX_CHARS[b & 0x0F]);
-			}
-		}
-		return sb.toString();
-	}
-	
-	/**
-	 * Returns a String representing the byte[] as a sequence of uppercase hexadecimal characters, 
-	 * starting with "0x".  Omitting any leading 0-value bytes.
-	 * @param bytes the byte array to convert.
-	 * @return a String representing the value of {@code bytes} as hexadecimal characters, starting with
-	 * "0x".  If {@code bytes} is null or has a length of 0, then the String "0x" is returned.
-	 */
-	public static String toHexShortString(byte[] bytes)
-	{
-		StringBuffer sb = new StringBuffer("0x");
+  /**
+   * Returns a String representing the byte[] as a sequence of uppercase
+   * hexadecimal characters, starting with "0x". Omitting any leading 0-value
+   * bytes.
+   * 
+   * @param bytes
+   *          the byte array to convert.
+   * @return a String representing the value of {@code bytes} as hexadecimal
+   *         characters, starting with "0x". If {@code bytes} is null or has a
+   *         length of 0, then the empty String ("") is returned.
+   */
+  public static String toEmptyHexString(byte[] bytes) {
+    if (bytes == null || bytes.length == 0) {
+      return "";
+    }
+    return toHexShortString(bytes);
+  }
 
-		boolean leadingZeros = true;
-		if (bytes != null) {
-			for (byte b : bytes) {
-				if(leadingZeros && b == 0)
-					continue;
-				leadingZeros = false;
-				sb.append(HEX_CHARS[0x0F & (b >> 4)]).append(
-						HEX_CHARS[b & 0x0F]);
-			}
-		}
-		return sb.toString();
-	}
+  /**
+   * Returns a String representing the byte[] as a sequence of uppercase
+   * hexadecimal characters, starting with "0x".
+   * 
+   * @param bytes
+   *          the byte array to convert.
+   * @return a String representing the value of {@code bytes} as hexadecimal
+   *         characters, starting with "0x". If {@code bytes} is null or has a
+   *         length of 0, then the String "0x" is returned.
+   */
+  public static String toHexString(byte[] bytes) {
+    StringBuffer sb = new StringBuffer("0x");
 
-	/**
-	 * Returns the value of {@code b} as a hexadecimal string, starting with "0x".
-	 * @param b the byte
-	 * @return the string representation of {@code b} in hexadecimal, with a leading "0x".
-	 */
-	public static String toHexString(byte b) {
-		StringBuffer sb = new StringBuffer(4);
-		sb.append("0x").append(HEX_CHARS[0x0F & (b >> 4)]).append(HEX_CHARS[b & 0x0F]);
-		return sb.toString();
-	}
+    if (bytes != null) {
+      for (byte b : bytes) {
+        sb.append(HEX_CHARS[0x0F & (b >> 4)]).append(HEX_CHARS[b & 0x0F]);
+      }
+    }
+    return sb.toString();
+  }
+
+  /**
+   * Returns a String representing the byte[] as a sequence of uppercase
+   * hexadecimal characters, starting with "0x". Omitting any leading 0-value
+   * bytes.
+   * 
+   * @param bytes
+   *          the byte array to convert.
+   * @return a String representing the value of {@code bytes} as hexadecimal
+   *         characters, starting with "0x". If {@code bytes} is null or has a
+   *         length of 0, then the String "0x" is returned.
+   */
+  public static String toHexShortString(byte[] bytes) {
+    StringBuffer sb = new StringBuffer("0x");
+
+    boolean leadingZeros = true;
+    if (bytes != null) {
+      for (byte b : bytes) {
+        if (leadingZeros && b == 0)
+          continue;
+        leadingZeros = false;
+        sb.append(HEX_CHARS[0x0F & (b >> 4)]).append(HEX_CHARS[b & 0x0F]);
+      }
+    }
+    return sb.toString();
+  }
+
+  /**
+   * Returns the value of {@code b} as a hexadecimal string, starting with "0x".
+   * 
+   * @param b
+   *          the byte
+   * @return the string representation of {@code b} in hexadecimal, with a
+   *         leading "0x".
+   */
+  public static String toHexString(byte b) {
+    StringBuffer sb = new StringBuffer(4);
+    sb.append("0x").append(HEX_CHARS[0x0F & (b >> 4)])
+        .append(HEX_CHARS[b & 0x0F]);
+    return sb.toString();
+  }
+
+  /**
+   * Converts the provided String of hexadecimal numbers (with optional leading
+   * "0x") into a {@code byte[]} of the same value. Invalid characters (outside
+   * the range 0-F) will be given the value 0.
+   * 
+   * @param hexString
+   *          the input string containing a hexadecimal value.
+   * @return a {@code byte[]} of the same value, or {@code null} if
+   *         {@code hexString} is {@code null} or contains no characters.
+   */
+  public static byte[] fromHexString(final String hexString) {
+    if (hexString == null) {
+      return null;
+    }
+
+    String str = hexString.trim().toLowerCase();
+
+    // Strip any leading "0x"
+    if (str.startsWith("0x")) {
+      str = str.substring(2);
+    }
+
+    int numChars = str.length();
+    if (numChars == 0) {
+      return null;
+    }
+    char[] chars = str.toCharArray();
+    byte[] retVal = new byte[(numChars + 1) / 2];
+    int byteIndex = retVal.length - 1;
+    for (int i = chars.length - 1; i > 0; i -= 2, --byteIndex) {
+      /*
+       * Have a leading nibble, so use the value and realign to an even index
+       */
+      if ((i & 0x01) == 0x01) {
+        /*
+         * Grab the value as lower nibble, increment by 1 afterward to offset
+         * the decrement by 2 in the loop
+         */
+        retVal[byteIndex] = fromChar(chars[i++]);
+        continue;
+      }
+      // Normal case, take hi and lo nibbles and combine into the byte
+      retVal[byteIndex] = (byte) ((fromChar(chars[i]) << 4) | fromChar(chars[i - 1]));
+    }
+    return retVal;
+  }
+
+  private static byte fromChar(final char nibble) {
+    byte retVal = 0;
+    if (nibble >= '0' && nibble <= '9') {
+      return (byte) (nibble - '0');
+    }
+    if (nibble >= 'a' && nibble <= 'f') {
+      return (byte) (nibble - 'a' + 10);
+    }
+
+    return 0;
+  }
 }
