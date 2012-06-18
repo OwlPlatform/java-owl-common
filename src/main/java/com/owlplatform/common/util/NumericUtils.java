@@ -152,8 +152,13 @@ public class NumericUtils {
     return retVal;
   }
 
+  /**
+   * Converts a single hexadecimal character into a byte. The value
+   * of the character is stored in the lower 4 bits of the returned byte.
+   * @param nibble the hexadecimal character to convert.
+   * @return a byte containing the binary equivalent of the hexadecimal character.
+   */
   private static byte fromChar(final char nibble) {
-    byte retVal = 0;
     if (nibble >= '0' && nibble <= '9') {
       return (byte) (nibble - '0');
     }
