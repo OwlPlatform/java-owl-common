@@ -141,21 +141,13 @@ public class NumericUtils {
     }
     char[] chars = str.toCharArray();
     byte[] retVal = new byte[(numChars + 1) / 2];
-    int byteIndex = retVal.length - 1;
-    for (int i = chars.length - 1; i > 0; i -= 2, --byteIndex) {
-      /*
-       * Have a leading nibble, so use the value and realign to an even index
-       */
-      if ((i & 0x01) == 0x01) {
-        /*
-         * Grab the value as lower nibble, increment by 1 afterward to offset
-         * the decrement by 2 in the loop
-         */
-        retVal[byteIndex] = fromChar(chars[i++]);
-        continue;
-      }
-      // Normal case, take hi and lo nibbles and combine into the byte
-      retVal[byteIndex] = (byte) ((fromChar(chars[i]) << 4) | fromChar(chars[i - 1]));
+    int byteIndex = 0;
+    int i = 0;
+    if ((chars.length & 0x01) == 1) {
+      retVal[byteIndex++] = fromChar(chars[i++]);
+    }
+    for (; i <chars.length; i += 2, ++byteIndex) {
+      retVal[byteIndex] = (byte) ((fromChar(chars[i]) << 4) | fromChar(chars[i+1]));
     }
     return retVal;
   }

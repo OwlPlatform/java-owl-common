@@ -31,7 +31,7 @@ import org.junit.Test;
 public class NumericUtilsTest {
 
   /**
-   * The output byte[] from STRING_INVALID.
+   * The output byte[] from STRING_INVALID when called with NumericUtils.fromHexString().
    */
   private static final byte[] INVALID = new byte[] {0,0,0,0};
   
@@ -39,6 +39,45 @@ public class NumericUtilsTest {
    * A string containing invalid hex characters
    */
   private static final String STRING_INVALID = "OXOXOXO";
+  
+  /**
+   * byte[] for STRING_ONE_DIGIT
+   */
+  private static final byte[] ONE_DIGIT = new byte[]{13};
+  
+  /**
+   * byte[] for STRING_TWO_DIGIT
+   */
+  private static final byte[] TWO_DIGIT = new byte[]{(byte)0xde};
+  
+  /**
+   * byte[] for STRING_THREE_DIGIT
+   */
+  private static final byte[] THREE_DIGIT = new byte[]{(byte)0xd, (byte)0xe1};
+  
+  /**
+   * byte[] for STRING_FOUR_DIGIT
+   */
+  private static final byte[] FOUR_DIGIT = new byte[]{(byte)0x2d, (byte)0xe1};
+  
+  /**
+   * A 1-digit test string.
+   */
+  private static final String STRING_ONE_DIGIT = "D";
+  
+  /**
+   * A 2-digit test string
+   */
+  private static final String STRING_TWO_DIGIT = "DE";
+  
+  /**
+   * A 3-digit test string
+   */
+  private static final String STRING_THREE_DIGIT = "DE1";
+  /**
+   * A 4-digit test string
+   */
+  private static final String STRING_FOUR_DIGIT = "2DE1";
   
   /**
    * byte[] data with leading 0 values.
@@ -124,13 +163,16 @@ public class NumericUtilsTest {
    */
   @Test
   public void testFromHexString(){
-    System.out.println(Arrays.toString(NumericUtils.fromHexString(STRING_LEADING_ZEROS)));
     Assert.assertTrue(Arrays.equals(LEADING_ZEROS,NumericUtils.fromHexString(STRING_LEADING_ZEROS)));
     Assert.assertTrue(Arrays.equals(NO_LEADING_ZEROS,NumericUtils.fromHexString(STRING_NO_LEADING)));
     Assert.assertTrue(Arrays.equals(INVALID,NumericUtils.fromHexString(STRING_INVALID)));
+    Assert.assertTrue(Arrays.equals(ONE_DIGIT, NumericUtils.fromHexString(STRING_ONE_DIGIT)));
+    Assert.assertTrue(Arrays.equals(TWO_DIGIT, NumericUtils.fromHexString(STRING_TWO_DIGIT)));
+    Assert.assertTrue(Arrays.equals(THREE_DIGIT, NumericUtils.fromHexString(STRING_THREE_DIGIT)));
+    Assert.assertTrue(Arrays.equals(FOUR_DIGIT, NumericUtils.fromHexString(STRING_FOUR_DIGIT)));
     
     Assert.assertNull(NumericUtils.fromHexString(null));
-    Assert.assertNull(NumericUtils.fromHexString(""));
-    Assert.assertNull(NumericUtils.fromHexString("0x"));
+    Assert.assertNull(NumericUtils.fromHexString(STRING_EMPTY_NULL));
+    Assert.assertNull(NumericUtils.fromHexString(STRING_NULL));
   }
 }
