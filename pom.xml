@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
   <groupId>com.owlplatform</groupId>
 	<artifactId>owl-common</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Owl Platform common library</name>
   <description>Utilities and data structures used by more than one Owl Platform library or component.</description>
