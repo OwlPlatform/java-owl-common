@@ -16,7 +16,7 @@
     </license>
   </licenses>
   <scm>
-    <url>git@github.com:OwlPlatform/java-owl-common.git</url>
+    <url>https://github.com/OwlPlatform/java-owl-common</url>
     <connection>scm:git:git@github.com:OwlPlatform/java-owl-common.git</connection>
     <developerConnection>scm:git:git@github.com:OwlPlatform/java-owl-common.git</developerConnection>
   </scm>
