@@ -79,24 +79,26 @@
 				<configuration>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.9.1</version>
-			</plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <version>2.5.2</version>
+      </plugin>
 		</plugins>
 	</reporting>
 
-	<build>
+  <build>
+    <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>cobertura-maven-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
 		<plugins>
-      <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.9.1</version>
-				<configuration>
-					<enableRulesSummary>false</enableRulesSummary>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -117,7 +119,39 @@
 						</manifest>
 					</archive>
 				</configuration>
-			</plugin>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <version>2.5.2</version>
+        <configuration>
+          <instrumentation>
+            <ignores>
+              <ignore>*Test</ignore>
+            </ignores>
+            <excludes>
+              <exclude>**/*Test.class</exclude>
+            </excludes>
+          </instrumentation>
+          <check>
+            <branchRate>85</branchRate>
+            <lineRate>85</lineRate>
+            <haltOnFailure>true</haltOnFailure>
+            <totalBranchRate>85</totalBranchRate>
+            <totalLineRate>85</totalLineRate>
+            <packageLineRate>85</packageLineRate>
+            <packageBranchRate>85</packageBranchRate>
+          </check>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>clean</goal>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 		</plugins>
 	</build>
 
