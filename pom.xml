@@ -41,6 +41,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/OwlPlatform/java-owl-common/issues</url>
+  </issueManagement>
+
   <organization>
     <name>Owl Platform</name>
     <url>http://www.owlplatform.com</url>
